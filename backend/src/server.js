@@ -7,9 +7,21 @@ import userRoutes from "./routes/user.route.js"
 import chatRoutes from "./routes/chat.route.js"
 import { connectDB } from "./lib/db.js";
 import path from "path";
+import job from "./lib/cron.js";
 
 const app=express();
+
+if(process.env.NODE_ENV==="production")
+{
+    job.start();
+}
+
 const PORT=process.env.PORT;
+
+app.get("/api/test",(req,res)=>
+{
+    res.status(200).send("Dummy response");
+});
 
 const __dirname=path.resolve();
 
